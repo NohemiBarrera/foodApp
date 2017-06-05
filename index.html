@@ -6,13 +6,13 @@
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="css/main.css">
-	<title>Taquitous</title>
+	<title>Cubiertos</title>
 </head>
 <body>
-
+<!--NAV MOBILE-->
 	<nav>
-    <div class="nav-wrapper">
-      <a href="#!" class="brand-logo"><img src="img/logo.png"></a>
+    <div class="nav-wrapper orange darken-1">
+      <a href="#!" class="brand-logo"><img id="logo" src="img/logo.png"></a>
       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <li><a href="#">Restaurantes</a></li>
@@ -26,7 +26,16 @@
       </ul>
     </div>
   </nav>
-
+<!--FIN NAV MOBILE-->
+<!--MAPA-->
+	<div id="map"></div>
+	 <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNPxjkZYEZ9H9gPU2Hh39ACP6gXPn-n1w&callback=initMap">
+    </script>
+	<button class="btn waves-effect waves-light orange darken-1" id="trazarRuta">Trazar Ruta</button>
+<!--FIN MAPA-->
+	
+<!--BÚSQUEDA-->
     <div class="nav-wrapper">
       <form>
         <div class="input-field">
@@ -36,8 +45,75 @@
         </div>
       </form>
     </div>
-  
-	
+<!--FIN BÚSQUEDA-->
+<!--LUGARES-->
+	<section>
+		<article>
+			<div class="card-panel hoverable grey lighten-5 z-depth-1">
+	        	<div class="row valign-wrapper">
+	            	<div class="col s3">
+	                	<img src="img/taco.jpg" alt="Contact" class="circle">
+	              	</div>
+	              	<div class="col s9">
+	              		<h5 class="name">Punto taco Mx</h5>
+	              		<p>Tacos</p>
+	                	<span class="black-text">
+	                 	Av. Álvaro Obregón 230, Roma Nte., 06700 Ciudad de México, CDMX
+	                </span>
+	              </div>
+	      		</div>
+          	</div>
+		</article>
+		<article>
+			<div class="card-panel hoverable grey lighten-5 z-depth-1">
+	        	<div class="row valign-wrapper">
+	            	<div class="col s3">
+	                	<img src="img/carls.jpeg" alt="Contact" class="circle">
+	              	</div>
+	              	<div class="col s9">
+	              		<h5 class="name">Carls Jr</h5>
+	              		<p>Haburguesas</p>
+	                	<span class="black-text">
+	                 	Génova 70-B, Juárez, 06600 Cuauhtemoc, CDMX
+	                </span>
+	              </div>
+	      		</div>
+          	</div>
+		</article>
+		<article>
+			<div class="card-panel hoverable grey lighten-5 z-depth-1">
+	        	<div class="row valign-wrapper">
+	            	<div class="col s3">
+	                	<img src="img/papa.png" alt="Contact" class="circle responsive-img">
+	              	</div>
+	              	<div class="col s9">
+	              		<h5 class="name">Papa guapa</h5>
+	              		<p>Papas</p>
+	                	<span class="black-text">
+	                 	Calle Orizaba 4, Local B, Cuauhtémoc, Roma Norte, Roma Nte., 06700 Ciudad de México, CDMX
+	                </span>
+	              </div>
+	      		</div>
+          	</div>
+		</article>
+		<article>
+			<div class="card-panel hoverable grey lighten-5 z-depth-1">
+	        	<div class="row valign-wrapper">
+	            	<div class="col s3">
+	                	<img src="img/mercado.jpg" alt="Contact" class="circle responsive-img">
+	              	</div>
+	              	<div class="col s9">
+	              		<h5 class="name">Mercado Roma</h5>
+	              		<p>Varios</p>
+	                	<span class="black-text">
+	                 	Calle Querétaro 225, Roma Nte., 06700 Ciudad de México, CDMX
+	                </span>
+	              </div>
+	      		</div>
+          	</div>
+		</article>
+	</section>
+<!--FIN LUGARES-->
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
