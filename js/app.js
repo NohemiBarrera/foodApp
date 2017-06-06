@@ -1,36 +1,38 @@
-/*Encontrar la posisción del usuario*/
-function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 15
-  });
-  var infoWindow = new google.maps.InfoWindow({map: map});
-
-  // Try HTML5 geolocation.
+function cargarPagina () {
+	obtenerUbicacionActual();
+	$("#search-form").submit(filtrarLugares);
+	$(".name").click(cambiarUbicacion);
+};
+/*Encontrar la posición del usuario*/
+function obtenerUbicacionActual() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-
-      infoWindow.setPosition(pos);
-      infoWindow.setContent('¡Te encontramos!');
-      map.setCenter(pos);
-    }, function() {
-      handleLocationError(true, infoWindow, map.getCenter());
-    });
+    navigator.geolocation.getCurrentPosition(mostrarPosicionActual);
   } else {
-    // Browser doesn't support Geolocation
-    handleLocationError(false, infoWindow, map.getCenter());
+    alert("Geolocalización no es soportado en tu navegador");
   }
 }
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(browserHasGeolocation ?
-                        'Error: The Geolocation service failed.' :
-                        'Error: Your browser doesn\'t support geolocation.');
+function mostrarPosicionActual(posicion) {
+  var latitud = posicion.coords.latitude;
+  var longitud = posicion.coords.longitude;
+
+  var coordenadas = {
+    lat: latitud,
+    lng: longitud
+  };
+
+  mostrarMapa(coordenadas);
+}
+
+function mostrarMapa(coordenadas) {
+  var map = new google.maps.Map($('.map')[0], {
+    zoom: 15,
+    center: coordenadas
+  });
+  var marker = new google.maps.Marker({
+    position: coordenadas,
+    map: map
+  });
 };
 
 /*Lugares*/
@@ -48,8 +50,8 @@ var lugares = [
 		"foto": "img/carls.jpeg",
 		"direccion": "Génova 70-B, Juárez, 06600 Cuauhtemoc, CDMX",
 		"categoria": "Hamburguesas",
-		"latitud": "19.4217644",
-		"longitud": "-99.1784958"
+		"latitud": "19.4253393",
+		"longitud": "-99.1655243"
 	},
 	{
 		"nombre": "Papa guapa",
@@ -64,8 +66,8 @@ var lugares = [
 		"foto": "img/mercado.jpg",
 		"direccion": "Calle Querétaro 225, Roma Nte., 06700 Ciudad de México, CDMX",
 		"categoria": "Varios",
-		"latitud": "19.4238476",
-		"longitud": "-99.1631193"
+		"latitud": "19.414062",
+		"longitud": "-99.1664147"
 	}
 ];
 console.log(lugares);
@@ -76,7 +78,7 @@ var plantillaLugar = '<article>' +
 	                	'<img src="--foto--" alt="Contact" class="circle responsive-img">' +
 	              	'</div>' +
 	              	'<div class="col s9">' +
-	              		'<h5 class="name">--nombre--</h5>' +
+	              		'<h5 class="name" data-latitud="--latitud--" data-longitud="--longitud--">--nombre--</h5>' +
 	              		'<p>--categoría--</p>' +
 	                	'<span class="black-text">' +
 	                 	'Dirección: --direccion--' +
@@ -86,9 +88,6 @@ var plantillaLugar = '<article>' +
           	'</div>' +
 		'</article>';
 
-var cargarPagina = function () {
-	$("#search-form").submit(filtrarLugares);
-};
 
 var filtrarLugares = function(e){
 	e.preventDefault();
@@ -103,9 +102,23 @@ var filtrarLugares = function(e){
 var mostrarLugares = function (lugares){
 	var plantillaFinal = "";
 	lugares.forEach(function(lugar){
-		plantillaFinal += plantillaLugar.replace("--nombre--", lugar.nombre).replace("--categoría--", lugar.categoria).replace("--foto--", lugar.foto).replace("--direccion--", lugar.direccion);
+		plantillaFinal += plantillaLugar.replace("--nombre--", lugar.nombre).replace("--latitud--", lugar.latitud).replace("--longitud--", lugar.longitud).replace("--categoría--", lugar.categoria).replace("--foto--", lugar.foto).replace("--direccion--", lugar.direccion);
 	});
 	$(".lugares").html(plantillaFinal);
 };
+
+function cambiarUbicacion (){
+  var latitud = $(this).data("latitud");
+  var longitud = $(this).data("longitud");
+
+  var coordenadas = {
+    lat: latitud,
+    lng: longitud
+  };
+
+  mostrarMapa(coordenadas);
+}
+  console.log(mostrarLugares);
+
 $( document ).ready(cargarPagina);
 	$(".button-collapse").sideNav();
