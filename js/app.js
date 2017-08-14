@@ -96,7 +96,6 @@ var filtrarLugares = function(e){
 		return lugar.nombre.toLowerCase().indexOf(criterio) >= 0;
 	});
 	mostrarLugares(resultados);
-	console.log(resultados);
 };
 
 var mostrarLugares = function (lugares){
