@@ -10,19 +10,7 @@ function obtenerUbicacionActual() {
   } else {
     alert("Geolocalización no es soportado en tu navegador");
   }
-}
-
-function mostrarPosicionActual(posicion) {
-  var latitud = posicion.coords.latitude;
-  var longitud = posicion.coords.longitude;
-
-  var coordenadas = {
-    lat: latitud,
-    lng: longitud
-  };
-
-  mostrarMapa(coordenadas);
-}
+};
 
 function mostrarMapa(coordenadas) {
   var map = new google.maps.Map($('.map')[0], {
@@ -33,6 +21,17 @@ function mostrarMapa(coordenadas) {
     position: coordenadas,
     map: map
   });
+};
+function mostrarPosicionActual(posicion) {
+  var latitud = posicion.coords.latitude;
+  var longitud = posicion.coords.longitude;
+
+  var coordenadas = {
+    lat: latitud,
+    lng: longitud
+  };
+
+  mostrarMapa(coordenadas);
 };
 
 /*Lugares*/
@@ -87,7 +86,13 @@ var plantillaLugar = '<article>' +
           	'</div>' +
 		'</article>';
 
-
+var mostrarLugares = function (lugares){
+	var plantillaFinal = "";
+	lugares.forEach(function(lugar){
+		plantillaFinal += plantillaLugar.replace("--nombre--", lugar.nombre).replace("--latitud--", lugar.latitud).replace("--longitud--", lugar.longitud).replace("--categoría--", lugar.categoria).replace("--foto--", lugar.foto).replace("--direccion--", lugar.direccion);
+	});
+	$(".lugares").html(plantillaFinal);
+};
 var filtrarLugares = function(e){
 	e.preventDefault();
 	var criterio = $("#search").val().toLowerCase();
@@ -95,14 +100,6 @@ var filtrarLugares = function(e){
 		return lugar.nombre.toLowerCase().indexOf(criterio) >= 0;
 	});
 	mostrarLugares(resultados);
-};
-
-var mostrarLugares = function (lugares){
-	var plantillaFinal = "";
-	lugares.forEach(function(lugar){
-		plantillaFinal += plantillaLugar.replace("--nombre--", lugar.nombre).replace("--latitud--", lugar.latitud).replace("--longitud--", lugar.longitud).replace("--categoría--", lugar.categoria).replace("--foto--", lugar.foto).replace("--direccion--", lugar.direccion);
-	});
-	$(".lugares").html(plantillaFinal);
 };
 
 function cambiarUbicacion (){
