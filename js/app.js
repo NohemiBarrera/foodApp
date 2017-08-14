@@ -70,7 +70,6 @@ var lugares = [
 		"longitud": "-99.1664147"
 	}
 ];
-console.log(lugares);
 var plantillaLugar = '<article>' +
 			'<div class="card-panel hoverable grey lighten-5 z-depth-1">' +
 	        	'<div class="row valign-wrapper">' +
@@ -116,8 +115,7 @@ function cambiarUbicacion (){
   };
 
   mostrarMapa(coordenadas);
-}
-  console.log(mostrarLugares);
+};
 
 $( document ).ready(cargarPagina);
 	$(".button-collapse").sideNav();
